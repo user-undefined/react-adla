@@ -1,21 +1,21 @@
 import { call, put, takeEvery, all } from "redux-saga/effects";
-import { fetchSongsSuccess, fetchSongsFailure, fetchSongs } from "./actions";
+import { fetchMusicFailure, fetchMusicSuccess, fetchMusic } from "./actions";
 
-import songsService from "services/Songs";
+import musicService from "services/Music";
 
-function* onFetchSongs() {
+function* onFetchMusic() {
   try {
-    const { songs } = yield call(songsService.fetchSongs);
-    yield put(fetchSongsSuccess(songs));
+    const { music } = yield call(musicService.fetchMusic);
+    yield put(fetchMusicSuccess(music));
   } catch (error) {
-    yield put(fetchSongsFailure(error));
+    yield put(fetchMusicFailure(error));
   }
 }
 
-function* watchSongs() {
-  yield takeEvery(fetchSongs, onFetchSongs);
+function* watchMusic() {
+  yield takeEvery(fetchMusic, onFetchMusic);
 }
 
 export default function* watch() {
-  yield all([watchSongs()]);
+  yield all([watchMusic()]);
 }

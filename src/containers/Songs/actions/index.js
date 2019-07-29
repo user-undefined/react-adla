@@ -1,6 +1,6 @@
 import { createAction } from "redux-actions";
-import { FETCH_SONGS, FETCH_SONGS_FAILURE, FETCH_SONGS_SUCESS } from "./types";
+import { FETCH_MUSIC, FETCH_MUSIC_FAILURE, FETCH_MUSIC_SUCESS } from "./types";
 
-export const fetchSongs = createAction(FETCH_SONGS);
-export const fetchSongsSuccess = createAction(FETCH_SONGS_FAILURE);
-export const fetchSongsFailure = createAction(FETCH_SONGS_SUCESS);
+export const fetchMusic = createAction(FETCH_MUSIC);
+export const fetchMusicSuccess = createAction(FETCH_MUSIC_FAILURE);
+export const fetchMusicFailure = createAction(FETCH_MUSIC_SUCESS);

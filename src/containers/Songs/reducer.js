@@ -1,17 +1,21 @@
 import { handleAction } from "redux-actions";
 import { createSelector } from "reselect";
-import { fetchSongsSuccess } from "./actions";
+import { fetchMusicSuccess } from "./actions";
 
-const SONGS = "songs";
+const MUSIC = "music";
 
 const defaultState = [];
 
-const songsReducer = handleAction(
-  [fetchSongsSuccess],
-  (state, { payload: songs }) => songs,
+const musicReducer = handleAction(
+  [fetchMusicSuccess],
+  (state, { payload: music }) => music,
   defaultState
 );
 
-export default { [SONGS]: songsReducer };
+export default { [MUSIC]: musicReducer };
 
-export const songsSelector = state => state.songs;
+export const musicSelector = state => state.music;
+export const songsSelector = createSelector(
+  musicSelector,
+  music => music.map(({ song }) => song)
+);

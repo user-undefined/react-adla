@@ -19,7 +19,7 @@ export default class Report extends PureComponent {
 
     return (
       <ul>
-        {songs.map(({ song }) => (
+        {songs.map(song => (
           <li>{song}</li>
         ))}
       </ul>

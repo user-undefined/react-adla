@@ -4,15 +4,16 @@ import { bindActionCreators } from "redux";
 import Songs from "./Songs";
 
 import { songsSelector } from "./reducer";
-import { fetchSongs } from "./actions";
+import { fetchMusic } from "./actions";
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetch: bindActionCreators(fetchSongs, dispatch)
+    fetch: bindActionCreators(fetchMusic, dispatch)
   };
 }
 
 function mapStateToProps(state) {
+  console.log(songsSelector(state));
   return {
     songs: songsSelector(state)
   };
