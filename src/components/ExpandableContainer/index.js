@@ -51,12 +51,10 @@ const Collapsed = ({ children }) => {
 ExpandableContainer.Collapsed = Collapsed;
 
 const ExpandElement = element => {
-  console.log("element", element);
   return () => (
     <ExpandContext.Consumer>
       {({ expanded, onExpand }) => {
         const Element = () => element({ expanded });
-        console.log("Element", Element);
         return (
           <div onClick={onExpand}>
             <Element />
