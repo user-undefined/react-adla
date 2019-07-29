@@ -81,21 +81,3 @@ export const discographiesAggregateByBandSelector = createSelector(
       return aggregate;
     }, {})
 );
-
-export const discographiesAggregateByAlbumSelector = createSelector(
-  discographiesSelector,
-  discographies =>
-    discographies.reduce((aggregate, discography) => {
-      if (aggregate[discography.album]) {
-        aggregate[discography.album].push({
-          album: discography.band,
-          song: discography.song
-        });
-      } else {
-        aggregate[discography.album] = [
-          { album: discography.band, song: discography.song }
-        ];
-      }
-      return aggregate;
-    }, {})
-);
