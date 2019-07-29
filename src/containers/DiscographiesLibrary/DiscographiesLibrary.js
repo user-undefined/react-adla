@@ -13,6 +13,7 @@ export default class Report extends PureComponent {
   render() {
     const { songs } = this.props;
 
+    console.log("props", this.props);
     if (isEmpty(songs)) {
       return "Loading...";
     }
