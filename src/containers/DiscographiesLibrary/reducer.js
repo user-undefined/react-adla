@@ -21,7 +21,50 @@ export const songsSelector = createSelector(
   discographies => discographies.map(({ song }) => song)
 );
 
-export const discographiesAggregateByBand = createSelector(
+export const songsAggregateByAlbumSelector = createSelector(
+  discographiesSelector,
+  discographies =>
+    discographies.reduce((aggregate, discography) => {
+      if (aggregate[discography.album]) {
+        aggregate[discography.album].push(discography.song);
+      } else {
+        aggregate[discography.album] = [discography.song];
+      }
+      return aggregate;
+    }, {})
+);
+
+export const albumsAggregateByBandSelector = createSelector(
+  discographiesSelector,
+  discographies =>
+    discographies.reduce((aggregate, discography) => {
+      if (aggregate[discography.band]) {
+        if (!aggregate[discography.band].includes(discography.album)) {
+          aggregate[discography.band].push(discography.album);
+        }
+      } else {
+        aggregate[discography.band] = [discography.album];
+      }
+      return aggregate;
+    }, {})
+);
+
+export const discographiesAggregatedByBandArtistSelector = createSelector(
+  songsAggregateByAlbumSelector,
+  albumsAggregateByBandSelector,
+  (songsByAlbum, albumsByBand) =>
+    Object.keys(albumsByBand).reduce((aggregate, band) => {
+      return aggregate.concat(
+        albumsByBand[band].map(album => ({
+          band,
+          album,
+          songs: songsByAlbum[album]
+        }))
+      );
+    }, [])
+);
+
+export const discographiesAggregateByBandSelector = createSelector(
   discographiesSelector,
   discographies =>
     discographies.reduce((aggregate, discography) => {
@@ -33,6 +76,24 @@ export const discographiesAggregateByBand = createSelector(
       } else {
         aggregate[discography.band] = [
           { album: discography.album, song: discography.song }
+        ];
+      }
+      return aggregate;
+    }, {})
+);
+
+export const discographiesAggregateByAlbumSelector = createSelector(
+  discographiesSelector,
+  discographies =>
+    discographies.reduce((aggregate, discography) => {
+      if (aggregate[discography.album]) {
+        aggregate[discography.album].push({
+          album: discography.band,
+          song: discography.song
+        });
+      } else {
+        aggregate[discography.album] = [
+          { album: discography.band, song: discography.song }
         ];
       }
       return aggregate;

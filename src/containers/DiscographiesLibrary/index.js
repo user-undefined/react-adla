@@ -3,7 +3,12 @@ import { bindActionCreators } from "redux";
 
 import DiscographiesLibrary from "./DiscographiesLibrary";
 
-import { songsSelector, discographiesAggregateByBand } from "./reducer";
+import {
+  songsSelector,
+  albumsAggregateByBandSelector,
+  songsAggregateByAlbumSelector,
+  discographiesAggregatedByBandArtistSelector
+} from "./reducer";
 import { fetchDiscographies } from "./actions";
 
 function mapDispatchToProps(dispatch) {
@@ -15,7 +20,9 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state) {
   return {
     songs: songsSelector(state),
-    band: discographiesAggregateByBand(state)
+    songsByAlbum: songsAggregateByAlbumSelector(state),
+    albumsByBand: albumsAggregateByBandSelector(state),
+    aggregate: discographiesAggregatedByBandArtistSelector(state)
   };
 }
 export default connect(
