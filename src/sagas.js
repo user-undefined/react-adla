@@ -1,6 +1,6 @@
 import { all, fork } from "redux-saga/effects";
-import songs from "containers/Songs/sagas";
+import discographies from "containers/DiscographiesLibrary/sagas";
 
 export default function* rootSaga() {
-  yield all([fork(songs)]);
+  yield all([fork(discographies)]);
 }

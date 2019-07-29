@@ -1,12 +1,12 @@
 const http = require("http");
-const music = require("./data");
+const discographies = require("./data");
 const PORT = 8081;
 
 function requestHandler(req, res) {
   let content;
   let status;
-  if (req.url === "/api/music") {
-    content = { music };
+  if (req.url === "/api/discographies") {
+    content = { discographies };
     status = 200;
   } else {
     content = { message: "Not found" };

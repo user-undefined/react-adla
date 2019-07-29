@@ -1,16 +1,16 @@
 import axios from "axios";
 
 export const API_URL = "http://localhost:8081/api";
-const MUSIC_URL = `${API_URL}/music`;
+const DISCOGRAPHIES_URL = `${API_URL}/discographies`;
 const GET = "get";
 
-async function fetchMusic() {
+async function fetch() {
   const { data } = await axios({
     method: GET,
-    url: MUSIC_URL
+    url: DISCOGRAPHIES_URL
   });
 
   return data;
 }
 
-export default { fetchMusic };
+export default { fetch };

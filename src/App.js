@@ -1,10 +1,10 @@
 import React from "react";
-import Songs from "containers/Songs";
+import DiscographiesLibrary from "containers/DiscographiesLibrary";
 
 export default function(props) {
   return (
     <div>
-      <Songs />
+      <DiscographiesLibrary />
     </div>
   );
 }
