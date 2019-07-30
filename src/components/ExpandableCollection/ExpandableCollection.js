@@ -13,8 +13,10 @@ class ExpandableCollection extends React.Component {
       return expanded;
     }, {});
 
+    const allExpanded = false;
     this.state = {
-      expanded
+      expanded,
+      allExpanded
     };
 
     this.expand = this.expand.bind(this);
@@ -31,43 +33,26 @@ class ExpandableCollection extends React.Component {
   }
 
   expandAll() {
-    const { expanded: prevExpanded } = this.state;
+    const { expanded: prevExpanded, allExpanded } = this.state;
     const expanded = Object.keys(prevExpanded).reduce((expanded, id) => {
-      expanded[id] = !prevExpanded[id];
+      expanded[id] = !allExpanded;
       return expanded;
     }, {});
 
-    this.setState({ expanded });
+    this.setState({ expanded, allExpanded: !allExpanded });
   }
 
   render() {
     const { children } = this.props;
-    const { expanded } = this.state;
+    const { expanded, allExpanded } = this.state;
     console.log(children);
     return (
-      <ExpandedContext.Provider
-        value={{ expanded, onExpand: this.expand, onExpandAll: this.expandAll }}
-      >
-        {children}
+      <ExpandedContext.Provider value={{ expanded, onExpand: this.expand }}>
+        {children({ onExpandAll: this.expandAll, allExpanded })}
       </ExpandedContext.Provider>
     );
   }
 }
-
-const ExpandAllElement = element => {
-  return () => (
-    <ExpandedContext.Consumer>
-      {({ onExpandAll }) => {
-        const Element = () => element({});
-        return (
-          <div onClick={onExpandAll}>
-            <Element />
-          </div>
-        );
-      }}
-    </ExpandedContext.Consumer>
-  );
-};
 
 function ExpandableElement({ id, children }) {
   console.log(id, children);
@@ -91,7 +76,6 @@ export default ExpandableCollection;
 export { ExpandableElement };
 
 ExpandableCollection.ExpandableElement = ExpandableElement;
-ExpandableCollection.ExpandAllElement = ExpandAllElement;
 
 ExpandableElement.Collapsed = ExpandableContainer.Collapsed;
 ExpandableElement.Expanded = ExpandableContainer.Expanded;

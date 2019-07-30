@@ -3,7 +3,18 @@ import { isEmpty } from "lodash";
 import List from "components/List";
 import ExpandableCollection, {
   ExpandableElement
-} from "components/ExpandableCollection/ExpandableCollection";
+} from "components/ExpandableCollection";
+import ExpandableContainer from "components/ExpandableContainer";
+
+const ExpandElement = ExpandableElement.ExpandElement(({ expanded }) => {
+  return expanded ? (
+    <div className="expand">
+      <div className="albums__expand-element albums__expand-element--expanded" />
+    </div>
+  ) : (
+    <div className="albums__expand-element albums__expand-element--collapsed" />
+  );
+});
 
 export default class AlbumsList extends PureComponent {
   constructor(props) {
@@ -13,15 +24,6 @@ export default class AlbumsList extends PureComponent {
   }
 
   itemRenderer({ item }) {
-    const ExpandElement = ExpandableElement.ExpandElement(({ expanded }) => {
-      return expanded ? (
-        <div className="expand">
-          <div className="albums__expand-element albums__expand-element--expanded" />
-        </div>
-      ) : (
-        <div className="albums__expand-element albums__expand-element--collapsed" />
-      );
-    });
     return (
       <List.Item key={item}>
         <ExpandableElement id={`${item.band}-${item.album}`}>
@@ -48,25 +50,19 @@ export default class AlbumsList extends PureComponent {
       return "No items";
     }
 
-    const ExpandAllElement = ExpandableCollection.ExpandAllElement(
-      ({ expanded }) => {
-        return expanded ? (
-          <div className="expand">
-            <div className="albums__expand-element albums__expand-element--expanded" />
-          </div>
-        ) : (
-          <div className="albums__expand-element albums__expand-element--collapsed" />
-        );
-      }
-    );
-
     return (
       <ExpandableCollection
         items={items.map(({ band, album }) => band + "-" + album)}
       >
-        Albums
-        <ExpandAllElement />
-        <List items={items} itemRenderer={this.itemRenderer} />
+        {({ onExpandAll, allExpanded }) => (
+          <>
+            <ExpandableContainer onExpand={onExpandAll} expanded={allExpanded}>
+              Albums
+              <ExpandElement />
+            </ExpandableContainer>
+            <List items={items} itemRenderer={this.itemRenderer} />
+          </>
+        )}
       </ExpandableCollection>
     );
   }
