@@ -2,7 +2,18 @@ import React from "react";
 
 const ExpandContext = React.createContext();
 
-class ExpandableContainer extends React.PureComponent {
+class ExpandableContainer extends React.Component {
+  render() {
+    const { children, onExpand, expanded } = this.props;
+    return (
+      <ExpandContext.Provider value={{ onExpand, expanded }}>
+        {children}
+      </ExpandContext.Provider>
+    );
+  }
+}
+
+class UncontrollableExpandableContaier extends React.Component {
   constructor(props) {
     super(props);
     this.state = { expanded: false };
@@ -17,13 +28,12 @@ class ExpandableContainer extends React.PureComponent {
   }
 
   render() {
+    const { expanded } = this.state;
     const { children } = this.props;
     return (
-      <ExpandContext.Provider
-        value={{ onExpand: this.toggle, expanded: this.state.expanded }}
-      >
+      <ExpandableContainer onExpand={this.toggle} expanded={expanded}>
         {children}
-      </ExpandContext.Provider>
+      </ExpandableContainer>
     );
   }
 }
@@ -67,3 +77,4 @@ const ExpandElement = element => {
 ExpandableContainer.ExpandElement = ExpandElement;
 
 export default ExpandableContainer;
+export { UncontrollableExpandableContaier };

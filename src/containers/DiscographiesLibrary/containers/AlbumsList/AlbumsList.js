@@ -1,7 +1,9 @@
 import React, { PureComponent } from "react";
 import { isEmpty } from "lodash";
 import List from "components/List";
-import ExpandableContainer from "components/ExpandableContainer";
+import ExpandableContainer, {
+  UncontrollableExpandableContaier
+} from "components/ExpandableContainer";
 
 export default class AlbumsList extends PureComponent {
   constructor(props) {
@@ -23,7 +25,7 @@ export default class AlbumsList extends PureComponent {
 
     return (
       <List.Item key={item}>
-        <ExpandableContainer>
+        <UncontrollableExpandableContaier>
           <div className="albums__item">
             {`${item.band} - ${item.album}`}
             <ExpandElement />
@@ -34,7 +36,7 @@ export default class AlbumsList extends PureComponent {
               itemRenderer={({ item }) => <List.Item>{item}</List.Item>}
             />
           </ExpandableContainer.Expanded>
-        </ExpandableContainer>
+        </UncontrollableExpandableContaier>
       </List.Item>
     );
   }
