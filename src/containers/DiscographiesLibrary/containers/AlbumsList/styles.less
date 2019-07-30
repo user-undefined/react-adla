@@ -1,0 +1,42 @@
+.expand {
+  display: flex;
+  align-items: center;
+
+  &__element {
+    margin: 4px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+
+    &--expanded {
+      transform: rotate(-135deg) translate(-2px, -2px);
+    }
+
+    &--collapsed {
+      transform: rotate(45deg);
+    }
+  }
+}
+
+.albums {
+  &__item {
+    display: flex;
+  }
+
+  &__expand-element {
+    margin: 4px;
+    border: solid black;
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+
+    &--expanded {
+      transform: rotate(-135deg) translate(-2px, -2px);
+    }
+
+    &--collapsed {
+      transform: rotate(45deg);
+    }
+  }
+}

@@ -1,11 +1,18 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+const srcPath = path.join(__dirname, "src");
+const sourceEntry = path.join(srcPath, "index.js");
+const stylesEntry = path.join(srcPath, "styles.less");
+
+const sourceBundle = "main.js";
 
 module.exports = {
-  entry: "./src/index.js",
+  entry: [stylesEntry, sourceEntry],
   mode: "development",
   output: {
-    filename: "main.js",
+    filename: sourceBundle,
     path: path.resolve(__dirname, "dist")
   },
   devServer: {
@@ -36,6 +43,16 @@ module.exports = {
             loader: "html-loader"
           }
         ]
+      },
+      {
+        test: /\.less$/,
+        exclude: /node_modules/,
+        include: srcPath,
+        use: [
+          { loader: MiniCssExtractPlugin.loader },
+          { loader: "css-loader" },
+          { loader: "less-loader" }
+        ]
       }
     ]
   },
@@ -43,6 +60,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "index.html"
+    }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css"
     })
   ]
 };

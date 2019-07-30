@@ -12,14 +12,22 @@ export default class AlbumsList extends PureComponent {
 
   itemRenderer({ item }) {
     const ExpandElement = ExpandableContainer.ExpandElement(({ expanded }) => {
-      return expanded ? <div>Expanded</div> : <div>Collapsed</div>;
+      return expanded ? (
+        <div className="expand">
+          <div className="albums__expand-element albums__expand-element--expanded" />
+        </div>
+      ) : (
+        <div className="albums__expand-element albums__expand-element--collapsed" />
+      );
     });
-    console.log(ExpandElement);
+
     return (
       <List.Item key={item}>
         <ExpandableContainer>
-          {`${item.band} - ${item.album}`}
-          <ExpandElement />
+          <div className="albums__item">
+            {`${item.band} - ${item.album}`}
+            <ExpandElement />
+          </div>
           <ExpandableContainer.Expanded>
             <List
               items={item.songs}
