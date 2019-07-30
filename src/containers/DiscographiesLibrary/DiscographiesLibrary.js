@@ -13,7 +13,6 @@ export default class DiscographyLibrary extends PureComponent {
   render() {
     return (
       <div>
-        Albums:
         <AlbumList />
       </div>
     );
