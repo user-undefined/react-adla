@@ -9,7 +9,7 @@ const stylesEntry = path.join(srcPath, "styles.less");
 const sourceBundle = "main.js";
 
 module.exports = {
-  entry: [stylesEntry, sourceEntry],
+  entry: ['@babel/polyfill', stylesEntry, sourceEntry],
   mode: "development",
   output: {
     filename: sourceBundle,
